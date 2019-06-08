@@ -1,13 +1,39 @@
 import React, { Component } from "react";
 
 import "../styles/App.css";
+import data from "../data.js";
+import Display from "./Display";
 
 class App extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = { quotation: this.randomQuotationGenerator };
+  }
+
+  //For now only 0-9 will need refactor for up to 999
+  randomQuotationGenerator(innerData, number) {
+    const { quotation, author, book, personal } = data[`quotation-00${number}`];
+
+    switch (innerData) {
+      case "quotation":
+        const randomQuatation = quotation;
+        return randomQuatation;
+      case "author":
+        return author;
+      case "book":
+        return book;
+      case "personal":
+        return personal;
+      default:
+        return null;
+    }
+  }
+
   render() {
+    console.log(data);
     return (
       <div className="App">
-        <h1>Will see</h1>
+        <h1>Random Pratchett Generator</h1>
         <nav className="menu">
           <ul>
             <li>Prev</li>
@@ -17,15 +43,7 @@ class App extends Component {
             <li>Next</li>
           </ul>
         </nav>
-        <main>
-          <h2>Book Title - author</h2>
-          <p className="text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat vel
-            temporibus quasi est ipsam dolores explicabo, cum nobis magnam.
-            Iste, culpa impedit nisi similique eius aliquid dignissimos nesciunt
-            molestias voluptates?
-          </p>
-        </main>
+        <Display display={this.randomQuotationGenerator} />
       </div>
     );
   }
