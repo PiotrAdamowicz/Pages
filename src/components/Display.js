@@ -1,16 +1,20 @@
 import React from "react";
 
 const Display = props => {
-  const number = Math.floor(Math.random() * 10);
+  // const number = Math.floor(Math.random() * 10);
+  // const { number } = props.randomNumber;
+  const { display, randomNumber } = props;
+  console.log(randomNumber);
+
   return (
     <main>
       <p className="text_display">
-        <i>{props.display("quotation", number)}</i>
+        <i>{display("quotation", randomNumber)}</i>
       </p>
       <p>
         <strong>
-          {props.display("author", number)} -{" "}
-          <i>{props.display("book", number)}</i>
+          {display("author", randomNumber)} -{" "}
+          <i>{display("book", randomNumber)}</i>
         </strong>
       </p>
     </main>

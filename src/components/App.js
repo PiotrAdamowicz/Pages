@@ -3,15 +3,25 @@ import React, { Component } from "react";
 import "../styles/App.css";
 import data from "../data.js";
 import Display from "./Display";
+import Button from "./Button";
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { quotation: this.randomQuotationGenerator };
+    this.state = {
+      quotation: this.randomQuotationGenerator,
+      randomNumber: this.randomNumberGenerator()
+    };
+    // this.randomNumberGenerator = this.randomNumberGenerator.bind(this);
   }
 
-  //For now only 0-9 will need refactor for up to 999
-  randomQuotationGenerator(innerData, number) {
+  randomNumberGenerator() {
+    const number = Math.floor(Math.random() * 10);
+    return number;
+  }
+
+  //For now only 0-9 will need to refactor for up to 999
+  quotationDisplay(innerData, number) {
     const { quotation, author, book, personal } = data[`quotation-00${number}`];
 
     switch (innerData) {
@@ -29,34 +39,47 @@ class App extends Component {
     }
   }
 
+  clickHandler = label => {
+    switch (label) {
+      case "Prev":
+        console.log("works Prev");
+        break;
+      case "Random Paragraph":
+        this.setState({ randomNumber: this.randomNumberGenerator() });
+        break;
+
+      default:
+        break;
+    }
+  };
+
   render() {
-    console.log(data);
     return (
       <div className="App">
         <h1>Random Pratchett Generator</h1>
         <nav className="menu">
+          {/* //TODO: buttons funcionality */}
           <ul>
-            <li>Prev</li>
-            <li>Random Paragraph</li>
+            <li>
+              <Button label="Prev" click={this.clickHandler} />
+            </li>
+            <li>
+              <Button label="Random Paragraph" click={this.clickHandler} />
+            </li>
             <li>Mode</li>
             <li>Book</li>
             <li>Next</li>
           </ul>
         </nav>
-        <Display display={this.randomQuotationGenerator} />
+        {/* TODO:This could be provided inform of simple props(not function) or just
+        simply importet to Displaycomponent since it's uniqe */}
+        <Display
+          display={this.quotationDisplay}
+          randomNumber={this.state.randomNumber}
+        />
       </div>
     );
   }
 }
 
 export default App;
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <h1>Shazam!!</h1>
-//     </div>
-//   );
-// }
-
-// export default App;
