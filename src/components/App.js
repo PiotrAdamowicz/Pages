@@ -9,10 +9,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quotation: this.randomQuotationGenerator,
-      randomNumber: this.randomNumberGenerator()
+      activeQuotation: this.randomNumberGenerator()
     };
-    // this.randomNumberGenerator = this.randomNumberGenerator.bind(this);
   }
 
   randomNumberGenerator() {
@@ -43,9 +41,23 @@ class App extends Component {
     switch (label) {
       case "Prev":
         console.log("works Prev");
+        this.setState({
+          activeQuotation: this.state.activeQuotation - 1
+        });
         break;
       case "Random Paragraph":
-        this.setState({ randomNumber: this.randomNumberGenerator() });
+        this.setState({ activeQuotation: this.randomNumberGenerator() });
+
+        console.log(this.state.activeQuotation);
+        break;
+      case "Mode":
+        console.log("Mode Works");
+        break;
+      case "Books":
+        console.log("Mode Books");
+        break;
+      case "Next":
+        console.log("Mode Next");
         break;
 
       default:
@@ -66,16 +78,22 @@ class App extends Component {
             <li>
               <Button label="Random Paragraph" click={this.clickHandler} />
             </li>
-            <li>Mode</li>
-            <li>Book</li>
-            <li>Next</li>
+            <li>
+              <Button label="Mode" click={this.clickHandler} />
+            </li>
+            <li>
+              <Button label="Books" click={this.clickHandler} />
+            </li>
+            <li>
+              <Button label="Next" click={this.clickHandler} />
+            </li>
           </ul>
         </nav>
-        {/* TODO:This could be provided inform of simple props(not function) or just
-        simply importet to Displaycomponent since it's uniqe */}
+        {/* TODO:This could be provided in form of simple props(not function) or just
+        simply imported to Display component since it's uniqe */}
         <Display
           display={this.quotationDisplay}
-          randomNumber={this.state.randomNumber}
+          randomNumber={this.state.activeQuotation}
         />
       </div>
     );

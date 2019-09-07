@@ -32,6 +32,7 @@ const data = {
   "quotation-005": {
     quotation:
       "It is said that your life flashes before your eyes just before you die. That is true, it's called Life.",
+    author: "Terry Pratchett",
     book: "The Last Continent"
   },
   "quotation-006": {
