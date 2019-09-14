@@ -59,4 +59,7 @@ const data = {
     book: "The Shepherd's Crown"
   }
 };
+
+export const dataLenght = Object.keys(data).length;
+
 export default data;

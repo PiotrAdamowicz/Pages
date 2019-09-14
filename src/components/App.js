@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import "../styles/App.css";
 import data from "../data.js";
+import { dataLenght } from "../data";
 import Display from "./Display";
 import Button from "./Button";
 
@@ -44,26 +45,44 @@ class App extends Component {
         this.setState({
           activeQuotation: this.state.activeQuotation - 1
         });
+        this.navigationHandler(false);
         break;
       case "Random Paragraph":
         this.setState({ activeQuotation: this.randomNumberGenerator() });
+        break;
 
-        console.log(this.state.activeQuotation);
-        break;
-      case "Mode":
-        console.log("Mode Works");
-        break;
       case "Books":
         console.log("Mode Books");
         break;
       case "Next":
         console.log("Mode Next");
+        this.setState({
+          activeQuotation: this.state.activeQuotation + 1
+        });
+        this.navigationHandler(true);
         break;
 
       default:
         break;
     }
   };
+
+  //TODO: edge case for max inedx of data object
+  navigationHandler(direction) {
+    //for positive values handels edge cases for Next button
+    console.log(dataLenght);
+    if (direction) {
+      if (this.state.activeQuotation >= dataLenght - 1) {
+        this.setState({ activeQuotation: 0 });
+        console.log(dataLenght);
+      }
+    } else if (!direction) {
+      if (this.state.activeQuotation <= 0) {
+        this.setState({ activeQuotation: dataLenght - 1 });
+        console.log("false works");
+      }
+    }
+  }
 
   render() {
     return (
@@ -78,9 +97,7 @@ class App extends Component {
             <li>
               <Button label="Random Paragraph" click={this.clickHandler} />
             </li>
-            <li>
-              <Button label="Mode" click={this.clickHandler} />
-            </li>
+
             <li>
               <Button label="Books" click={this.clickHandler} />
             </li>
