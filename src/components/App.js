@@ -3,8 +3,17 @@ import React, { Component } from "react";
 import "../styles/App.css";
 import data from "../data.js";
 import { dataLenght } from "../data";
-import Display from "./Display";
+import DisplayStyled from "./Display";
 import Button from "./Button";
+import styled from "styled-components";
+
+const ButtonStyled = styled(Button)`
+  width: ${props => (props.big ? "100%" : "30%")};
+`;
+const Li = styled.li`
+  flex-grow: ${props => (props.big ? 3 : 1)};
+  width: 100%;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -91,24 +100,27 @@ class App extends Component {
         <nav className="menu">
           {/* //TODO: buttons funcionality */}
           <ul>
-            <li>
-              <Button label="Prev" click={this.clickHandler} />
-            </li>
-            <li>
-              <Button label="Random Paragraph" click={this.clickHandler} />
-            </li>
-
-            <li>
-              <Button label="Books" click={this.clickHandler} />
-            </li>
-            <li>
-              <Button label="Next" click={this.clickHandler} />
-            </li>
+            <Li big>
+              <ButtonStyled
+                big
+                label="Random Paragraph"
+                click={this.clickHandler}
+              />
+            </Li>
+            <Li>
+              <ButtonStyled label="Prev" click={this.clickHandler} />
+            </Li>
+            <Li>
+              <ButtonStyled label="Books" click={this.clickHandler} />
+            </Li>
+            <Li>
+              <ButtonStyled label="Next" click={this.clickHandler} />
+            </Li>
           </ul>
         </nav>
         {/* TODO:This could be provided in form of simple props(not function) or just
         simply imported to Display component since it's uniqe */}
-        <Display
+        <DisplayStyled
           display={this.quotationDisplay}
           randomNumber={this.state.activeQuotation}
         />

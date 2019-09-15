@@ -1,8 +1,7 @@
 import React from "react";
+import styled from "styled-components";
 
 const Display = props => {
-  // const number = Math.floor(Math.random() * 10);
-  // const { number } = props.randomNumber;
   const { display, randomNumber } = props;
   console.log(randomNumber);
 
@@ -21,4 +20,8 @@ const Display = props => {
   );
 };
 
-export default Display;
+const DisplaStyled = styled(Display)`
+  font-size: 100px;
+`;
+
+export default DisplaStyled;
