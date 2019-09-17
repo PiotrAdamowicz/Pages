@@ -20,8 +20,13 @@ const Display = props => {
   );
 };
 
-const DisplaStyled = styled(Display)`
-  font-size: 100px;
+//TODO: how de heeefff do I mix react component with Styled component while importing it
+const DisplayStyled = styled(Display)`
+  main {
+    p {
+      padding-left: 20px;
+    }
+  }
 `;
 
-export default DisplaStyled;
+export default DisplayStyled;

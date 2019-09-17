@@ -1,18 +1,51 @@
 import React, { Component } from "react";
-
-import "../styles/App.css";
-import data from "../data.js";
-import { dataLenght } from "../data";
+import data from "../utils/data.js";
+import { dataLenght } from "../utils/data";
 import DisplayStyled from "./Display";
 import Button from "./Button";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 
+const GlobalStyle = createGlobalStyle`
+body{
+  padding: 0 ;
+  margin: 0;
+  
+}
+*, *::before, *::after{
+  box-sizing: border-box;
+}
+`;
+const Div = styled("div")`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+// TODO: why can't I center h1?
+const H1 = styled.h1`
+  padding-left: auto;
+`;
 const ButtonStyled = styled(Button)`
-  width: ${props => (props.big ? "100%" : "30%")};
+  border: none;
+  text-decoration: none;
+  border-radius: 50%;
+`;
+const Ul = styled.ul`
+  display: flex;
+  /* justify-content: center; */
+  list-style: none;
+  flex-wrap: wrap;
+  width: 360px;
+  height: 140px;
+  padding-inline-start: 0;
 `;
 const Li = styled.li`
-  flex-grow: ${props => (props.big ? 3 : 1)};
   width: 100%;
+  button {
+    width: 100%;
+    flex-grow: 1;
+    height: 100%;
+    font-size: 20px;
+  }
 `;
 
 class App extends Component {
@@ -76,7 +109,6 @@ class App extends Component {
     }
   };
 
-  //TODO: edge case for max inedx of data object
   navigationHandler(direction) {
     //for positive values handels edge cases for Next button
     console.log(dataLenght);
@@ -84,7 +116,7 @@ class App extends Component {
       if (this.state.activeQuotation >= dataLenght - 1) {
         this.setState({ activeQuotation: 0 });
         console.log(dataLenght);
-      }
+      } //as above just for negativ and Prev
     } else if (!direction) {
       if (this.state.activeQuotation <= 0) {
         this.setState({ activeQuotation: dataLenght - 1 });
@@ -95,11 +127,11 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1>Random Pratchett Generator</h1>
+      <Div className="App">
+        <GlobalStyle />
+        <H1>Random Pratchett Generator</H1>
         <nav className="menu">
-          {/* //TODO: buttons funcionality */}
-          <ul>
+          <Ul>
             <Li big>
               <ButtonStyled
                 big
@@ -116,7 +148,7 @@ class App extends Component {
             <Li>
               <ButtonStyled label="Next" click={this.clickHandler} />
             </Li>
-          </ul>
+          </Ul>
         </nav>
         {/* TODO:This could be provided in form of simple props(not function) or just
         simply imported to Display component since it's uniqe */}
@@ -124,7 +156,7 @@ class App extends Component {
           display={this.quotationDisplay}
           randomNumber={this.state.activeQuotation}
         />
-      </div>
+      </Div>
     );
   }
 }
