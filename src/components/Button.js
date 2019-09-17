@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = props => {
-  return (
-    <button onClick={props.click.bind(this, props.label)}>{props.label}</button>
-  );
-};
+const ButtonStyled = styled.button`
+  border: none;
+  text-decoration: none;
+  border-border-bottom-left-radius: 50%;
+`;
 
-export default Button;
+export default ButtonStyled;

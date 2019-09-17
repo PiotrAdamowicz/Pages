@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import data from "../utils/data.js";
 import { dataLenght } from "../utils/data";
 import DisplayStyled from "./Display";
-import Button from "./Button";
+import ButtonStyled from "./Button";
 import styled, { createGlobalStyle } from "styled-components";
+
+const buttonLabels = ["Random Paragraph", "Prev", "Book", "Next"];
 
 const GlobalStyle = createGlobalStyle`
 body{
@@ -23,11 +25,6 @@ const Div = styled("div")`
 // TODO: why can't I center h1?
 const H1 = styled.h1`
   padding-left: auto;
-`;
-const ButtonStyled = styled(Button)`
-  border: none;
-  text-decoration: none;
-  border-radius: 50%;
 `;
 const Ul = styled.ul`
   display: flex;
@@ -126,29 +123,21 @@ class App extends Component {
   }
 
   render() {
+    const nav = buttonLabels.map(label => {
+      return (
+        <Li>
+          <ButtonStyled onClick={this.clickHandler.bind(this, label)}>
+            {label}
+          </ButtonStyled>
+        </Li>
+      );
+    });
     return (
       <Div className="App">
         <GlobalStyle />
         <H1>Random Pratchett Generator</H1>
         <nav className="menu">
-          <Ul>
-            <Li big>
-              <ButtonStyled
-                big
-                label="Random Paragraph"
-                click={this.clickHandler}
-              />
-            </Li>
-            <Li>
-              <ButtonStyled label="Prev" click={this.clickHandler} />
-            </Li>
-            <Li>
-              <ButtonStyled label="Books" click={this.clickHandler} />
-            </Li>
-            <Li>
-              <ButtonStyled label="Next" click={this.clickHandler} />
-            </Li>
-          </Ul>
+          <Ul>{nav}</Ul>
         </nav>
         {/* TODO:This could be provided in form of simple props(not function) or just
         simply imported to Display component since it's uniqe */}
